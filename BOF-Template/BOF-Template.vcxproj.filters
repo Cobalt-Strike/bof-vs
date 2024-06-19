@@ -27,6 +27,9 @@
     <ClCompile Include="base\mock.cpp">
       <Filter>Source Files\base</Filter>
     </ClCompile>
+    <ClCompile Include="base\mock_syscalls.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="beacon.h">
@@ -38,7 +41,10 @@
     <ClInclude Include="base\mock.h">
       <Filter>Header Files\base</Filter>
     </ClInclude>
-    <ClInclude Include="beacon_user_data.h">
+    <ClInclude Include="beacon_gate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sleepmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

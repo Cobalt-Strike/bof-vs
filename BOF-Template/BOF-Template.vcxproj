@@ -104,16 +104,19 @@
     <NMakeBuildCommandLine>nmake all</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>nmake /B all</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
+    <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <NMakeBuildCommandLine>nmake all</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>nmake /B all</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
+    <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeBuildCommandLine>nmake all-debug</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>nmake /B all-debug</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
+    <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">
     <NMakeBuildCommandLine>nmake all-debug</NMakeBuildCommandLine>
@@ -125,6 +128,7 @@
     <NMakeReBuildCommandLine>nmake /B all-debug</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
     <IncludePath>$(MSBuildProjectDirectory)\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.7\build\native\include;$(IncludePath)</IncludePath>
+    <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">
     <NMakeBuildCommandLine>nmake all-debug</NMakeBuildCommandLine>
@@ -150,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_GTEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(SolutionDir)\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.7\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -196,7 +200,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_GTEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.7\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -225,6 +229,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="base\mock.cpp" />
+    <ClCompile Include="base\mock_syscalls.cpp" />
     <ClCompile Include="bof.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\User\source\repos\BOF-Template\x64\Debug\bof.exe</ExcludedFromBuild>
     </ClCompile>
@@ -233,7 +238,8 @@
     <ClInclude Include="base\helpers.h" />
     <ClInclude Include="base\mock.h" />
     <ClInclude Include="beacon.h" />
-    <ClInclude Include="beacon_user_data.h" />
+    <ClInclude Include="beacon_gate.h" />
+    <ClInclude Include="sleepmask.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />

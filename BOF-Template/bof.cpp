@@ -8,13 +8,15 @@
  *      is linked against the the debug build.
  */
 #ifdef _DEBUG
-#include "base\mock.h"
 #undef DECLSPEC_IMPORT
 #define DECLSPEC_IMPORT
+#include "base\mock.h"
 #endif
 
 extern "C" {
 #include "beacon.h"
+#include "sleepmask.h"
+
     // Define the Dynamic Function Resolution declaration for the GetLastError function
     DFR(KERNEL32, GetLastError);
     // Map GetLastError to KERNEL32$GetLastError 
@@ -38,6 +40,11 @@ extern "C" {
             BeaconPrintf(CALLBACK_OUTPUT, "System Directory: %s", path);
         }
     }
+
+    /*
+    void sleep_mask(PSLEEPMASK_INFO info, PFUNCTION_CALL funcCall) {
+    }
+    */
 }
 
 // Define a main function for the bebug build
@@ -47,6 +54,26 @@ int main(int argc, char* argv[]) {
     // Run BOF's entrypoint
     // To pack arguments for the bof use e.g.: bof::runMocked<int, short, const char*>(go, 6502, 42, "foobar");
     bof::runMocked<>(go);
+
+    /* To test a sleepmask BOF, the following mockup executors can be used
+    // Mock up Beacon and run the sleep mask once
+    bof::runMockedSleepMask(sleep_mask);
+
+    // Mock up Beacon with the specific .stage C2 profile
+    bof::runMockedSleepMask(sleep_mask,
+        {
+            .allocator = bof::profile::Allocator::VirtualAlloc,
+            .obfuscate = bof::profile::Obfuscate::False,
+            .useRWX = bof::profile::UseRWX::True,
+            .module = "",
+        },
+        {
+            .sleepTimeMs = 5000,
+            .runForever = false,
+        }
+    );
+    */
+
     return 0;
 }
 

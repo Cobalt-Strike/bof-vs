@@ -60,9 +60,9 @@ The above `DFR` macro statement expands to the following declaration.
 DECLSPEC_IMPORT decltype(OpenProcess) KERNEL32$OpenProcess;
 ```
 
-A common practice is to map the KERNEL32$OpenProcess function to OpenProcess
+A common practice is to map the `KERNEL32$OpenProcess` function to OpenProcess
 using the following macro definition. This mapping enables you to call the
-OpenProcess function directly, eliminating the need for the KERNEL32$ prefix.
+OpenProcess function directly, eliminating the need for the `KERNEL32$` prefix.
 
 ```cpp
 #define OpenProcess KERNEL32$OpenProcess
@@ -188,6 +188,35 @@ TEST(ExampleBofTest, TestCase1) {
     ASSERT_EQ(expected, actual); 
 }
 ```
+
+## Sleepmask
+In addition to supporting standard Beacon Object Files, the template also includes
+functionality for developing Sleepmask BOFs. Beacon's Sleepmask can be used to apply
+runtime masking to its PE sections and Heap allocations. Therefore, this template
+creates a "mock Beacon" as part of the call to runMockedSleepMask() to replicate
+the layout of Beacon in memory during debugging. This function also makes it possible
+to apply malleable C2 settings to the "mock Beacon".
+
+
+```c
+// Mock up Beacon and run the sleep mask once
+bof::runMockedSleepMask(sleep_mask);
+
+// Mock up Beacon with the specific .stage C2 profile
+bof::runMockedSleepMask(sleep_mask,
+    {
+        .allocator = bof::profile::Allocator::VirtualAlloc,
+        .obfuscate = bof::profile::Obfuscate::False,
+        .useRWX = bof::profile::UseRWX::True,
+        .module = "",
+    },
+    {
+        .sleepTimeMs = 5000,
+        .runForever = false,
+    }
+);
+```
+
 
 ## Multiple BOFs
 

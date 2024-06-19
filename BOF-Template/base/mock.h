@@ -1,10 +1,47 @@
 #include <vector>
 #include <string>
 
+#include "../sleepmask.h"
+
 namespace bof {
+    const DWORD CsVersion = 0x041000;
+
+    namespace profile {
+        /**
+         * Enum classes to mimic the stage block in the C2 profile.
+         */
+        enum class Allocator {
+            VirtualAlloc,
+            HeapAlloc,
+            MapViewOfFile
+        };
+        enum class Obfuscate {
+            False,
+            True
+        };
+        enum class UseRWX {
+            False,
+            True
+        };
+
+        struct Stage {
+            Allocator allocator;
+            Obfuscate obfuscate;
+            UseRWX useRWX;
+            std::string module;
+        };
+
+        const Stage defaultStage = {
+            .allocator = bof::profile::Allocator::VirtualAlloc,
+            .obfuscate = bof::profile::Obfuscate::False,
+            .useRWX = bof::profile::UseRWX::True,
+            .module = "",
+        };
+    }
+
     namespace mock {
         /**
-         * Data container class used for packing BOF's arguments.
+         * Data container class used for packing BOF arguments.
          */
         class BofData {
         public:
@@ -45,7 +82,7 @@ namespace bof {
             friend BofData &operator<<(BofData &container, T arg)
             {
                 container.pack(arg);
-                return os;
+                return container;
             }
 
             /**
@@ -73,6 +110,26 @@ namespace bof {
 
             std::vector<char> data;
         };
+
+        /**
+         * This structure holds the information about how the mock runner should
+         * execute the sleepmask.
+         */
+        typedef struct {
+            DWORD sleepTimeMs;
+            bool runForever;
+        } MockSleepMaskConfig;
+
+        /**
+         * Setup memory for a mock Beacon
+         * 
+         * The memory layout is created by mimicking Beacon's default reflective loader,
+         * and the related C2 options
+         * 
+         * @param stage The applicable stage{} options
+         * @return the mock Beacon memory structure
+         */
+        BEACON_INFO setupMockBeacon(const bof::profile::Stage& stage);
     }
 
     namespace output {
@@ -162,4 +219,60 @@ namespace bof {
         // Return the stored outputs
         return bof::output::getOutputs();
     }
+
+    /**
+     * Setup a mock-up Beacon and execute the sleepmask function once with the default .stage options and mock-up config.
+     *
+     * @param sleepMaskFunc the function pointer for the sleepmask
+     * @return A vector of OutputEntry objects
+     */
+    std::vector<bof::output::OutputEntry> runMockedSleepMask(SLEEPMASK_FUNC sleepMaskFunc);
+
+    /**
+     * Setup a mock-up Beacon and execute the sleepmask function using a custom stage profile, and the default mock-up config.
+     *
+     * @param sleepMaskFunc the function pointer for the sleepmask
+     * @param stage the stage options
+     * @return A vector of OutputEntry objects
+     */
+    std::vector<bof::output::OutputEntry> runMockedSleepMask(SLEEPMASK_FUNC sleepMaskFunc, const bof::profile::Stage& stage);
+
+    /**
+     * Setup a mock-up Beacon and execute the sleepmask function using a custom stage profile and mock-up config.
+     *
+     * @param sleepMaskFunc the function pointer for the sleepmask
+     * @param stage the applicable stage{} options
+     * @param config the mockup config
+     * @return A vector of OutputEntry objects
+     */
+    std::vector<bof::output::OutputEntry> runMockedSleepMask(SLEEPMASK_FUNC sleepMaskFunc, const bof::profile::Stage& stage, const bof::mock::MockSleepMaskConfig& config);
+
+    /**
+     * Execute the sleepmask.
+     *
+     * @param sleepMaskFunc the function pointer for the sleepmask
+     * @param sleepMaskInfo the pointer to the SLEEPMASK_INFO structure
+     * @param functionCall the pointer to the FUNCTION_CALL structure
+     * @return A vector of OutputEntry objects
+     */
+    std::vector<bof::output::OutputEntry> runMockedSleepMask(SLEEPMASK_FUNC sleepMaskFunc, PSLEEPMASK_INFO sleepMaskInfo, PFUNCTION_CALL functionCall);
+
+    /**
+     * Setup a mock-up Beacon and execute the sleepmask function as Beacon Gate with the default stage block.
+     *
+     * @param sleepMaskFunc the function pointer for the sleepmask
+     * @param functionCall the pointer to FUNCTION_CALL structure
+     * @return A vector of OutputEntry objects
+     */
+    std::vector<bof::output::OutputEntry> runMockedBeaconGate(SLEEPMASK_FUNC sleepMaskFunc, PFUNCTION_CALL functionCall);
+
+    /**
+     * Setup a mock-up Beacon and execute the sleepmask function as Beacon Gate with a custom stage profile.
+     *
+     * @param sleepMaskFunc the function pointer for the sleepmask
+     * @param functionCall the pointer to FUNCTION_CALL structure
+     * @param stage the stage options
+     * @return A vector of OutputEntry objects
+     */
+    std::vector<bof::output::OutputEntry> runMockedBeaconGate(SLEEPMASK_FUNC sleepMaskFunc, PFUNCTION_CALL functionCall, const bof::profile::Stage& stage);
 }

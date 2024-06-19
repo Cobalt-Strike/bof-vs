@@ -1,5 +1,5 @@
-CFLAGS=/c /GS- /std:c++17
-DEBUGCFLAGS=/Zi /MTd /D_DEBUG /EHsc /std:c++17 
+CFLAGS=/c /GS- /std:c++20
+DEBUGCFLAGS=/Zi /MTd /D_DEBUG /EHsc /std:c++20
 
 !IF "$(PROCESSOR_ARCHITECTURE)" != "x86" && "$(PROCESSOR_ARCHITECTURE)" != "AMD64"
 !ERROR Only x86 and AMD64 architectures are supported or the PROCESSOR_ARCHITECTURE environment variable is not set.
