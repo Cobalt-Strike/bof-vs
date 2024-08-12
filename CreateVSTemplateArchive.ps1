@@ -1,6 +1,6 @@
 # script to create a zip archive that can be used as user template in Visual Studio
 # https://learn.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates?view=vs-2022
-# usage: pack-template.ps1
+# usage: CreateVSTemplateArchive.ps1
 # optional: copy or symlink the archive to C:\Users\<username>\Documents\Visual Studio 2022\Templates\ProjectTemplates\<archive>.zip
 
 $srcpaths = $(".\metadata\*", ".\BOF-Template\*")
