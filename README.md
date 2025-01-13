@@ -11,6 +11,7 @@ To get started, use the instructions provided below.
 
 * An x64 Windows 10/11 development machine (without a security solution)
 * Visual Studio Community/Pro/Enterprise 2022 (Desktop Development with C++ installed)
+* Python 3 for the BOF linter (optional)
 
 ### Template Installation
 
@@ -217,7 +218,6 @@ bof::runMockedSleepMask(sleep_mask,
 );
 ```
 
-
 ## Multiple BOFs
 
 The template supports multiple BOFs within separate files, enabling each .cpp
@@ -226,4 +226,29 @@ for multiple projects and allows grouping similar BOFs under one Visual Studio
 project. When it comes to debugging, since each BOF is compiled into its own
 debug executable, it is important to adjust the debug command accordingly.
 This can be done through the project properties: `Configuration Properties
--> Debugging -> Command`. 
+-> Debugging -> Command`.
+
+## BOF Linter
+
+To help identify potential BOF issues, the template integrates the `boflint`
+tool, which runs during the release build to analyze the BOF for common errors
+and shows them in the Error List of Visual Studio. This linter detects several
+key issues, including:
+
+- **Relocation types**: Ensures only supported relocation types are used.
+- **Entry point validation**: Verifies the presence of the mandatory `go` or `sleep_mask` function.
+- **Import resolution**: Flags undefined or unresolvable imports.
+- **Large stack variables**: Detects large stack variable usage that results in an unresolvable import for stack probing.
+- **Exception handling**: Warns against the use of exception handling, which is unsupported in BOFs.
+
+`boflint` is only executed if Python 3 is detected on the system. If Python 3
+is not installed, you can get it from:
+
+- [Microsoft Store](https://apps.microsoft.com/detail/9ncvdn91xzqp?hl=en-us&gl=US)
+- [Official Python release](https://www.python.org/downloads/windows/)
+
+You can also run the linter manually:
+
+```
+python ./utils/boflint.py --loader cs x64/Release/bof.x64.o
+```

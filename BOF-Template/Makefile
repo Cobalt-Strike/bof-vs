@@ -1,5 +1,6 @@
 CFLAGS=/c /GS- /std:c++20
 DEBUGCFLAGS=/Zi /MTd /D_DEBUG /EHsc /std:c++20
+PYTHON=python
 
 !IF "$(PROCESSOR_ARCHITECTURE)" != "x86" && "$(PROCESSOR_ARCHITECTURE)" != "AMD64"
 !ERROR Only x86 and AMD64 architectures are supported or the PROCESSOR_ARCHITECTURE environment variable is not set.
@@ -18,18 +19,23 @@ OUTEXT=.x86.o
 !ENDIF
 
 all: *.cpp
-    @$(MAKE) $(patsubst %.c,%.obj, $(patsubst %.cpp, %.obj, $(patsubsti %, $(IMDIR)\%, $**)))
+    @$(MAKE) /A $(patsubst %.c,%.obj, $(patsubst %.cpp, %.obj, $(patsubsti %, $(IMDIR)\%, $**)))
     @if not exist "$(OUTDIR)" mkdir "$(OUTDIR)"
     copy "$(IMDIR)\*.obj" "$(OUTDIR)"
     del /F "$(OUTDIR)\*$(OUTEXT)"
     ren "$(OUTDIR)*.obj" "*$(OUTEXT)"
 
 all-debug: *.cpp
-    @$(MAKE) $(patsubst %.c,%.exe, $(patsubst %.cpp, %.exe, $(patsubsti %, $(DOUTDIR)\%, $**)))
+    @$(MAKE) /A $(patsubst %.c,%.exe, $(patsubst %.cpp, %.exe, $(patsubsti %, $(DOUTDIR)\%, $**)))
 
 .cpp{$(IMDIR)}.obj:
     @if not exist "$(IMDIR)" mkdir "$(IMDIR)"
     $(CPP) $(CFLAGS) /Fo"$@" $<
+
+    @(where $(PYTHON) >nul 2>nul \
+        && $(PYTHON) --version >nul 2>nul \
+        || (echo [*] Install Python to enable boflint && exit /b 0) \
+    ) && $(PYTHON) utils\boflint.py --logformat vs --loader cs "$@"
 
 .cpp{$(DOUTDIR)}.exe:
     @if not exist "$(DIMDIR)" mkdir "$(DIMDIR)"
