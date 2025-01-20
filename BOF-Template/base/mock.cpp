@@ -338,13 +338,15 @@ namespace bof {
     }
 
     std::vector<bof::output::OutputEntry> runMockedSleepMask(SLEEPMASK_FUNC sleepMaskFunc, const bof::profile::Stage& stage, const bof::mock::MockSleepMaskConfig& config) {
+        BEACON_INFO beaconInfo = bof::mock::setupMockBeacon(stage);
         SLEEPMASK_INFO sleepmaskInfo = {
             .version = bof::CsVersion,
             .reason = DEFAULT_SLEEP,
             .sleep_time = config.sleepTimeMs,
-            .beacon_info = bof::mock::setupMockBeacon(stage),
+            .beacon_info = beaconInfo,
         };
         bof::mock::resolveMockUpSleepmaskLocation(sleepmaskInfo.beacon_info);
+        bof::mock::setBeaconInfo(beaconInfo);
 
         std::vector<bof::output::OutputEntry> output;
         do {
@@ -368,13 +370,15 @@ namespace bof {
     }
 
     std::vector<bof::output::OutputEntry> runMockedBeaconGate(SLEEPMASK_FUNC sleepMaskFunc, PFUNCTION_CALL functionCall, const bof::profile::Stage& stage) { 
+        BEACON_INFO beaconInfo = bof::mock::setupMockBeacon(stage);
         SLEEPMASK_INFO sleepmaskInfo = {
             .version = bof::CsVersion,
             .reason = BEACON_GATE,
             .sleep_time = 0,
-            .beacon_info = bof::mock::setupMockBeacon(stage),
+            .beacon_info = beaconInfo,
         };
         bof::mock::resolveMockUpSleepmaskLocation(sleepmaskInfo.beacon_info);
+        bof::mock::setBeaconInfo(beaconInfo);
         return runMockedSleepMask(sleepMaskFunc, &sleepmaskInfo, functionCall);
     }
 
@@ -415,6 +419,18 @@ extern "C"
         parser->original = buffer;
         parser->size = size;
         parser->length = size;
+    }
+
+    char* BeaconDataPtr(datap* parser, int size) {
+        if (parser->length < size) {
+            return NULL;
+        }
+
+        char* data = parser->buffer;
+        parser->buffer += size;
+        parser->length -= size;
+
+        return data;
     }
 
     int BeaconDataInt(datap *parser) {
@@ -525,6 +541,12 @@ extern "C"
         std::cerr << "Not implemented: " << __FUNCTION__ << std::endl;
     }
 
+
+    BOOL BeaconSpawnTemporaryProcess(BOOL x86, BOOL ignoreToken, STARTUPINFO* si, PROCESS_INFORMATION* pInfo) {
+        std::cerr << "Not implemented: " << __FUNCTION__ << std::endl;
+        return false;
+    }
+
     void BeaconCleanupProcess(PROCESS_INFORMATION *pInfo) {
         std::cerr << "Not implemented: " << __FUNCTION__ << std::endl;
     }
@@ -538,8 +560,8 @@ extern "C"
         return TRUE;
     }
 
-    BOOL BeaconInformation(BEACON_INFO* info) {
-        std::memcpy(&bof::mock::beaconInfo, info, sizeof(BEACON_INFO));
+    BOOL BeaconInformation(PBEACON_INFO info) {
+        std::memcpy(info, &bof::mock::beaconInfo, sizeof(BEACON_INFO));
         return TRUE;
     }
 
@@ -591,10 +613,13 @@ extern "C"
         return bof::bud::custom;
     }
 
-    BOOL BeaconGetSyscallInformation(PBEACON_SYSCALLS info, BOOL resolveIfNotInitialized) {
+    BOOL BeaconGetSyscallInformation(PBEACON_SYSCALLS info, SIZE_T infoSize, BOOL resolveIfNotInitialized) {
+        if (infoSize != sizeof(BEACON_SYSCALLS)) {
+            return FALSE;
+        }
         if (info) {
-            bof::mock::syscall::ResolveSyscalls(info->syscalls);
-            bof::mock::syscall::ResolveRtls(info->rtls);
+            bof::mock::syscall::ResolveSyscalls(&info->syscalls);
+            bof::mock::syscall::ResolveRtls(&info->rtls);
             return TRUE;
         }
         return FALSE;
@@ -665,5 +690,19 @@ extern "C"
         return WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, lpNumberOfBytesWritten);
     }
 
+    VOID BeaconDisableBeaconGate() {
+        std::cerr << "Not implemented: " << __FUNCTION__ << std::endl;
+    }
 
+    VOID BeaconEnableBeaconGate() {
+        std::cerr << "Not implemented: " << __FUNCTION__ << std::endl;
+    }
+
+    VOID BeaconDisableBeaconGateMasking() {
+        std::cerr << "Not implemented: " << __FUNCTION__ << std::endl;
+    }
+
+    VOID BeaconEnableBeaconGateMasking() {
+        std::cerr << "Not implemented: " << __FUNCTION__ << std::endl;
+    }
 }

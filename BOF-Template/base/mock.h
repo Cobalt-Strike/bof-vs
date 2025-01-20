@@ -130,6 +130,13 @@ namespace bof {
          * @return the mock Beacon memory structure
          */
         BEACON_INFO setupMockBeacon(const bof::profile::Stage& stage);
+
+        /**
+         * Change the mock BEACON_INFO strucutre
+         * 
+         * @param info The new beacon inforamation
+         */
+        void setBeaconInfo(BEACON_INFO& info);
     }
 
     namespace output {
@@ -209,6 +216,9 @@ namespace bof {
      */
     template <typename... T>
     std::vector<bof::output::OutputEntry> runMocked(void (*entry)(char*, int), T &&...v) {
+        // Setup mock Beacon memory
+        BEACON_INFO beaconInfo = bof::mock::setupMockBeacon(bof::profile::defaultStage);
+        bof::mock::setBeaconInfo(beaconInfo);
         // Reset the global output container
         bof::output::reset();
         // Pack the arguments

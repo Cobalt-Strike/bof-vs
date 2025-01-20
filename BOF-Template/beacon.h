@@ -21,6 +21,7 @@
  *               Updated the BEACON_INFO data structure to add new parameters
  *    4/19/2024: Added BeaconGetSyscallInformation API for 4.10
  *    4/25/2024: Added APIs to call Beacon's system call implementation
+ *    12/18/2024: Updated BeaconGetSyscallInformation API for 4.11 (Breaking changes)
  */
 #ifndef _BEACON_H_
 #define _BEACON_H_
@@ -316,13 +317,18 @@ typedef struct
 	PVOID rtlGetProcessHeapAddr;
 } RTL_API, *PRTL_API;
 
+/* Updated in version 4.11 to use the entire structure instead of pointers to the structure.
+ * This allows for retrieving a copy of the information which would be under the BOF's
+ * control instead of a reference pointer which may be obfuscated when beacon is sleeping.
+ */
 typedef struct
 {
-	PSYSCALL_API syscalls;
-	PRTL_API     rtls;
+	SYSCALL_API syscalls;
+	RTL_API     rtls;
 } BEACON_SYSCALLS, *PBEACON_SYSCALLS;
 
-DECLSPEC_IMPORT BOOL BeaconGetSyscallInformation(PBEACON_SYSCALLS info, BOOL resolveIfNotInitialized);
+/* Updated in version 4.11 to include the size of the info pointer, which equals sizeof(BEACON_SYSCALLS) */
+DECLSPEC_IMPORT BOOL BeaconGetSyscallInformation(PBEACON_SYSCALLS info, SIZE_T infoSize, BOOL resolveIfNotInitialized);
 
 /* Beacon System call functions which will use the current system call method */
 DECLSPEC_IMPORT LPVOID BeaconVirtualAlloc(LPVOID lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect);
@@ -342,7 +348,12 @@ DECLSPEC_IMPORT BOOL BeaconDuplicateHandle(HANDLE hSourceProcessHandle, HANDLE h
 DECLSPEC_IMPORT BOOL BeaconReadProcessMemory(HANDLE hProcess, LPCVOID lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesRead);
 DECLSPEC_IMPORT BOOL BeaconWriteProcessMemory(HANDLE hProcess, LPVOID lpBaseAddress, LPCVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesWritten);
 
+/* Beacon Gate APIs */
+DECLSPEC_IMPORT VOID BeaconDisableBeaconGate();
+DECLSPEC_IMPORT VOID BeaconEnableBeaconGate();
 
+DECLSPEC_IMPORT VOID BeaconDisableBeaconGateMasking();
+DECLSPEC_IMPORT VOID BeaconEnableBeaconGateMasking();
 
 /* Beacon User Data
  *
