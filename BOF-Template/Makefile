@@ -1,4 +1,4 @@
-CFLAGS=/c /GS- /std:c++20
+CFLAGS=/c /GS- /std:c++20 /D_HAS_EXCEPTIONS=0 /GR-
 DEBUGCFLAGS=/Zi /MTd /D_DEBUG /EHsc /std:c++20
 PYTHON=python
 
@@ -18,8 +18,10 @@ DOUTDIR=..\Debug\
 OUTEXT=.x86.o
 !ENDIF
 
+
 all: *.cpp
     @$(MAKE) /A $(patsubst %.c,%.obj, $(patsubst %.cpp, %.obj, $(patsubsti %, $(IMDIR)\%, $**)))
+
     @if not exist "$(OUTDIR)" mkdir "$(OUTDIR)"
     copy "$(IMDIR)\*.obj" "$(OUTDIR)"
     del /F "$(OUTDIR)\*$(OUTEXT)"
