@@ -22,6 +22,7 @@
  *    4/19/2024: Added BeaconGetSyscallInformation API for 4.10
  *    4/25/2024: Added APIs to call Beacon's system call implementation
  *    12/18/2024: Updated BeaconGetSyscallInformation API for 4.11 (Breaking changes)
+ *    2/13/2025: Updated SYSCALL_API structure with more ntAPIs
  */
 #ifndef _BEACON_H_
 #define _BEACON_H_
