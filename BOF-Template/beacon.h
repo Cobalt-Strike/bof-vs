@@ -301,6 +301,22 @@ typedef struct
 	SYSCALL_API_ENTRY ntReadFile;
 	SYSCALL_API_ENTRY ntWriteFile;
 	SYSCALL_API_ENTRY ntCreateFile;
+	SYSCALL_API_ENTRY ntQueueApcThread;
+	SYSCALL_API_ENTRY ntCreateProcess;
+	SYSCALL_API_ENTRY ntOpenProcessToken;
+	SYSCALL_API_ENTRY ntTestAlert;
+	SYSCALL_API_ENTRY ntSuspendProcess;
+	SYSCALL_API_ENTRY ntResumeProcess;
+	SYSCALL_API_ENTRY ntQuerySystemInformation;
+	SYSCALL_API_ENTRY ntQueryDirectoryFile;
+	SYSCALL_API_ENTRY ntSetInformationProcess;
+	SYSCALL_API_ENTRY ntSetInformationThread;
+	SYSCALL_API_ENTRY ntQueryInformationProcess;
+	SYSCALL_API_ENTRY ntQueryInformationThread;
+	SYSCALL_API_ENTRY ntOpenSection;
+	SYSCALL_API_ENTRY ntAdjustPrivilegesToken;
+	SYSCALL_API_ENTRY ntDeviceIoControlFile;
+	SYSCALL_API_ENTRY ntWaitForMultipleObjects;
 } SYSCALL_API, *PSYSCALL_API;
 
 /* Additional Run Time Library (RTL) addresses used to support system calls.

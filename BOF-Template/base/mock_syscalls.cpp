@@ -153,6 +153,23 @@ namespace bof {
                 RESOLVE_ENTRY(syscalls->ntReadFile, "NtReadFile");
                 RESOLVE_ENTRY(syscalls->ntWriteFile, "NtWriteFile");
                 RESOLVE_ENTRY(syscalls->ntCreateFile, "NtCreateFile");
+
+                /* Added in 411 */
+                RESOLVE_ENTRY(syscalls->ntQueueApcThread, "ZwQueueApcThread");
+                RESOLVE_ENTRY( syscalls->ntCreateProcess, "ZwCreateProcess");
+                RESOLVE_ENTRY(syscalls->ntOpenProcessToken, "ZwOpenProcessToken");
+                RESOLVE_ENTRY(syscalls->ntTestAlert, "ZwTestAlert");
+                RESOLVE_ENTRY(syscalls->ntSuspendProcess, "ZwSuspendProcess");
+                RESOLVE_ENTRY(syscalls->ntResumeProcess, "ZwResumeProcess");
+                RESOLVE_ENTRY(syscalls->ntQuerySystemInformation, "ZwQuerySystemInformation");
+                RESOLVE_ENTRY(syscalls->ntSetInformationProcess, "ZwSetInformationProcess");
+                RESOLVE_ENTRY(syscalls->ntSetInformationThread, "ZwSetInformationThread");
+                RESOLVE_ENTRY(syscalls->ntQueryInformationProcess, "ZwQueryInformationProcess");
+                RESOLVE_ENTRY(syscalls->ntQueryInformationThread, "ZwQueryInformationThread");
+                RESOLVE_ENTRY(syscalls->ntOpenSection, "ZwOpenSection");
+                RESOLVE_ENTRY(syscalls->ntAdjustPrivilegesToken, "ZwAdjustPrivilegesToken");
+                RESOLVE_ENTRY(syscalls->ntDeviceIoControlFile, "ZwDeviceIoControlFile");
+                RESOLVE_ENTRY(syscalls->ntWaitForMultipleObjects, "ZwWaitForMultipleObjects");
             }
 
             /**
