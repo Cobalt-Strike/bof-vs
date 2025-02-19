@@ -280,6 +280,28 @@ namespace bof {
             }
             assert(false && "Could not find the text section of the debug image");
         }
+
+        FUNCTION_CALL createFunctionCallStructure(PVOID targetFunction, WinApi targetFunctionName, BOOL bMask, int numOfArgs, ...) {
+            FUNCTION_CALL functionCall = { 0 };
+            va_list valist = NULL;
+
+            /* Set basic info for encapsulated function call */
+            functionCall.functionPtr = targetFunction;
+            functionCall.function = targetFunctionName;
+            functionCall.bMask = bMask;
+            functionCall.numOfArgs = numOfArgs;
+
+            /* Start parsing valist and copy over variadic arguments. */
+            va_start(valist, numOfArgs);
+            for (int i = 0; i < numOfArgs; i++)
+            {
+                functionCall.args[i] = va_arg(valist, ULONG_PTR);
+            }
+            va_end(valist);
+
+            return functionCall;
+        }
+
     }
 
     namespace output {

@@ -132,6 +132,17 @@ namespace bof {
         BEACON_INFO setupMockBeacon(const bof::profile::Stage& stage);
 
         /**
+         * Setup a FUNCTION_CALL structure
+         * 
+         * @param targetFunction The WINAPI function pointer
+         * @param targetFunctionName Human readable WinApi enum
+         * @param bMask Mask beacon
+         * @param numOfArgs number of arguments for the WINAPI function
+         * @param ... the arguments for the WINAPI function
+         */
+        FUNCTION_CALL createFunctionCallStructure(PVOID targetFunction, WinApi targetFunctionName, BOOL bMask, int numOfArgs, ...);
+
+        /**
          * Change the mock BEACON_INFO strucutre
          * 
          * @param info The new beacon inforamation
