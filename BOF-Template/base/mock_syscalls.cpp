@@ -155,21 +155,21 @@ namespace bof {
                 RESOLVE_ENTRY(syscalls->ntCreateFile, "NtCreateFile");
 
                 /* Added in 411 */
-                RESOLVE_ENTRY(syscalls->ntQueueApcThread, "ZwQueueApcThread");
-                RESOLVE_ENTRY( syscalls->ntCreateProcess, "ZwCreateProcess");
-                RESOLVE_ENTRY(syscalls->ntOpenProcessToken, "ZwOpenProcessToken");
-                RESOLVE_ENTRY(syscalls->ntTestAlert, "ZwTestAlert");
-                RESOLVE_ENTRY(syscalls->ntSuspendProcess, "ZwSuspendProcess");
-                RESOLVE_ENTRY(syscalls->ntResumeProcess, "ZwResumeProcess");
-                RESOLVE_ENTRY(syscalls->ntQuerySystemInformation, "ZwQuerySystemInformation");
-                RESOLVE_ENTRY(syscalls->ntSetInformationProcess, "ZwSetInformationProcess");
-                RESOLVE_ENTRY(syscalls->ntSetInformationThread, "ZwSetInformationThread");
-                RESOLVE_ENTRY(syscalls->ntQueryInformationProcess, "ZwQueryInformationProcess");
-                RESOLVE_ENTRY(syscalls->ntQueryInformationThread, "ZwQueryInformationThread");
-                RESOLVE_ENTRY(syscalls->ntOpenSection, "ZwOpenSection");
-                RESOLVE_ENTRY(syscalls->ntAdjustPrivilegesToken, "ZwAdjustPrivilegesToken");
-                RESOLVE_ENTRY(syscalls->ntDeviceIoControlFile, "ZwDeviceIoControlFile");
-                RESOLVE_ENTRY(syscalls->ntWaitForMultipleObjects, "ZwWaitForMultipleObjects");
+                RESOLVE_ENTRY(syscalls->ntQueueApcThread, "NtQueueApcThread");
+                RESOLVE_ENTRY( syscalls->ntCreateProcess, "NtCreateProcess");
+                RESOLVE_ENTRY(syscalls->ntOpenProcessToken, "NtOpenProcessToken");
+                RESOLVE_ENTRY(syscalls->ntTestAlert, "NtTestAlert");
+                RESOLVE_ENTRY(syscalls->ntSuspendProcess, "NtSuspendProcess");
+                RESOLVE_ENTRY(syscalls->ntResumeProcess, "NtResumeProcess");
+                RESOLVE_ENTRY(syscalls->ntQuerySystemInformation, "NtQuerySystemInformation");
+                RESOLVE_ENTRY(syscalls->ntSetInformationProcess, "NtSetInformationProcess");
+                RESOLVE_ENTRY(syscalls->ntSetInformationThread, "NtSetInformationThread");
+                RESOLVE_ENTRY(syscalls->ntQueryInformationProcess, "NtQueryInformationProcess");
+                RESOLVE_ENTRY(syscalls->ntQueryInformationThread, "NtQueryInformationThread");
+                RESOLVE_ENTRY(syscalls->ntOpenSection, "NtOpenSection");
+                RESOLVE_ENTRY(syscalls->ntAdjustPrivilegesToken, "NtAdjustPrivilegesToken");
+                RESOLVE_ENTRY(syscalls->ntDeviceIoControlFile, "NtDeviceIoControlFile");
+                RESOLVE_ENTRY(syscalls->ntWaitForMultipleObjects, "NtWaitForMultipleObjects");
             }
 
             /**
