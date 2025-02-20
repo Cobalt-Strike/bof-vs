@@ -5,7 +5,7 @@
 
 #define DFR_LOCAL(module, function) \
 	DECLSPEC_IMPORT decltype(function) module##$##function; \
-	decltype(module##$##function) *##function = module##$##function;
+	decltype(module##$##function) * function = module##$##function;
 #else
 #define DFR_LOCAL(module, function)
 #define DFR(module, function) \
