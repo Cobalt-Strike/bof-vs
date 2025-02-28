@@ -158,6 +158,7 @@ namespace bof {
                 RESOLVE_ENTRY(syscalls->ntQueueApcThread, "NtQueueApcThread");
                 RESOLVE_ENTRY( syscalls->ntCreateProcess, "NtCreateProcess");
                 RESOLVE_ENTRY(syscalls->ntOpenProcessToken, "NtOpenProcessToken");
+                RESOLVE_ENTRY(syscalls->ntQueryDirectoryFile, "NtQueryDirectoryFile");
                 RESOLVE_ENTRY(syscalls->ntTestAlert, "NtTestAlert");
                 RESOLVE_ENTRY(syscalls->ntSuspendProcess, "NtSuspendProcess");
                 RESOLVE_ENTRY(syscalls->ntResumeProcess, "NtResumeProcess");
