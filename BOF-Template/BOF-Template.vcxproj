@@ -101,20 +101,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>nmake all</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake /B all</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>nmake /A all</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /A all</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
     <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <NMakeBuildCommandLine>nmake all</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake /B all</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>nmake /A all</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /A all</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
     <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>nmake all-debug</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake /B all-debug</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>nmake /A all-debug</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /A all-debug</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
     <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
@@ -124,8 +124,8 @@
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <NMakeBuildCommandLine>nmake all-debug</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake /B all-debug</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>nmake /A all-debug</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /A all-debug</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
     <IncludePath>$(MSBuildProjectDirectory)\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.7\build\native\include;$(IncludePath)</IncludePath>
     <AdditionalOptions>/std:c++20</AdditionalOptions>
