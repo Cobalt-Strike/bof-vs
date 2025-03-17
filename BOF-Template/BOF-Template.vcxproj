@@ -229,7 +229,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="base\mock.cpp" />
-    <ClCompile Include="base\mock_syscalls.cpp" />
+    <ClCompile Include="base\mock_syscalls.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="bof.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\User\source\repos\BOF-Template\x64\Debug\bof.exe</ExcludedFromBuild>
     </ClCompile>
