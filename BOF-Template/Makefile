@@ -18,14 +18,14 @@ OUTEXT=.x86.o
 !ENDIF
 
 all: *.cpp
-    @$(MAKE) $(patsubst %.c,%.obj, $(patsubst %.cpp, %.obj, $(patsubsti %, $(IMDIR)\%, $**)))
+    @$(MAKE) /A $(patsubst %.c,%.obj, $(patsubst %.cpp, %.obj, $(patsubsti %, $(IMDIR)\%, $**)))
     @if not exist "$(OUTDIR)" mkdir "$(OUTDIR)"
     copy "$(IMDIR)\*.obj" "$(OUTDIR)"
     del /F "$(OUTDIR)\*$(OUTEXT)"
     ren "$(OUTDIR)*.obj" "*$(OUTEXT)"
 
 all-debug: *.cpp
-    @$(MAKE) $(patsubst %.c,%.exe, $(patsubst %.cpp, %.exe, $(patsubsti %, $(DOUTDIR)\%, $**)))
+    @$(MAKE) /A $(patsubst %.c,%.exe, $(patsubst %.cpp, %.exe, $(patsubsti %, $(DOUTDIR)\%, $**)))
 
 .cpp{$(IMDIR)}.obj:
     @if not exist "$(IMDIR)" mkdir "$(IMDIR)"
