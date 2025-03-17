@@ -24,6 +24,8 @@ to have `All languages` chosen as the language filter.
 If Visual Studio does not recognize the template, then reset the project template cache by
 deleting the following file: `%localappdata%\Microsoft\VisualStudio\<VS vesrion>\ProjectTemplatesCache_{<GUID>}\cache.bin`
 
+If you need a BOF-VS template for a previous version of Cobalt Strike, you can find it under the [tags](https://github.com/Cobalt-Strike/bof-vs/tags).
+
 ### Debug Build
 
 The `Debug` target builds your BOF to an executable, which allows
