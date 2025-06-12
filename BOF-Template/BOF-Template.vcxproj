@@ -119,8 +119,8 @@
     <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">
-    <NMakeBuildCommandLine>nmake all-debug</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake /B all-debug</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>nmake /A all-debug</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /A all-debug</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -131,8 +131,8 @@
     <AdditionalOptions>/std:c++20</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTest|x64'">
-    <NMakeBuildCommandLine>nmake all-debug</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>nmake /B all-debug</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>nmake /A all-debug</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /A all-debug</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake clean</NMakeCleanCommandLine>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -247,6 +247,7 @@
   <ItemGroup>
     <None Include="Makefile" />
     <None Include="packages.config" />
+    <None Include="utils\boflint.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
