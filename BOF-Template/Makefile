@@ -23,8 +23,8 @@ all: *.cpp
     @$(MAKE) /A $(patsubst %.c,%.obj, $(patsubst %.cpp, %.obj, $(patsubsti %, $(IMDIR)\%, $**)))
 
     @if not exist "$(OUTDIR)" mkdir "$(OUTDIR)"
-    copy "$(IMDIR)\*.obj" "$(OUTDIR)"
-    del /F "$(OUTDIR)\*$(OUTEXT)"
+    copy "$(IMDIR)*.obj" "$(OUTDIR)"
+    del /F "$(OUTDIR)*$(OUTEXT)"
     ren "$(OUTDIR)*.obj" "*$(OUTEXT)"
 
 all-debug: *.cpp
