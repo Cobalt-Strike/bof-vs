@@ -1,6 +1,6 @@
 # Beacon Object File Visual Studio Template
 
-This repository contains the Beacon Object File Visual Studio (BOF-VS) template project.
+[This repository](https://github.com/Cobalt-Strike/bof-vs) contains the Beacon Object File Visual Studio (BOF-VS) template project.
 You can read more about rationale and design decisions from this blog [post](https://www.cobaltstrike.com/blog/simplifying-bof-development).
 
 ## Quick Start Guide
