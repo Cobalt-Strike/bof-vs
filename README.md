@@ -15,7 +15,7 @@ To get started, use the instructions provided below.
 
 ### Template Installation
 
-Download the latest [release](https://github.com/Cobalt-Strike/bof-vs/releases/latest/download/bof-vs.zip),
+Download the latest [release](https://github.com/Cobalt-Strike/bof-vs/releases/latest/download/Beacon.Object.File.BOF.zip),
 and copy the `bof-vs.zip` archive under the 
 `%USERPROFILE%\Documents\Visual Studio 2022\Templates\ProjectTemplates` folder.
 The template is accessible through Visual Studio's new project dialog,
